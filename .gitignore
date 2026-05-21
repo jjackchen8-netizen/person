@@ -13,3 +13,6 @@ dist-ssr
 .env.*
 !.env.example
 *.log
+
+# Qoder IDE 生成的元数据
+.qoder/
