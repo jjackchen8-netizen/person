@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { generateSidebar } from './utils/sidebar'
 
 export default defineConfig({
   title: 'chen 的博客',
@@ -26,22 +27,7 @@ export default defineConfig({
     ],
 
     sidebar: {
-      '/posts/': [
-        {
-          text: '前端',
-          collapsed: false,
-          items: [
-            { text: 'Vue3 开发小技巧', link: '/posts/frontend/vue3-tips' }
-          ]
-        },
-        {
-          text: '生活随笔',
-          collapsed: false,
-          items: [
-            { text: '你好，世界', link: '/posts/life/hello-world' }
-          ]
-        }
-      ]
+      '/posts/': generateSidebar()
     },
 
     socialLinks: [
