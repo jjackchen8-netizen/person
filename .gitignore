@@ -1,0 +1,15 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+.vitepress/cache
+.vitepress/dist
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea
+.env
+.env.*
+!.env.example
+*.log

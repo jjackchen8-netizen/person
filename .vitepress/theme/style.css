@@ -1,0 +1,141 @@
+/**
+ * 极简文艺风主题
+ * 黑白灰为主，衬线字体，留白克制
+ */
+
+:root {
+  /* 主色调：克制的黑白灰 */
+  --vp-c-brand-1: #2c2c2c;
+  --vp-c-brand-2: #1a1a1a;
+  --vp-c-brand-3: #000000;
+  --vp-c-brand-soft: rgba(60, 60, 60, 0.08);
+
+  /* 字体：衬线 + 等宽 */
+  --vp-font-family-base: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC',
+    'STSong', Georgia, 'Times New Roman', serif;
+  --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas,
+    'Courier New', monospace;
+
+  /* 背景：温柔米白 */
+  --vp-c-bg: #fafaf7;
+  --vp-c-bg-alt: #f3f2ed;
+  --vp-c-bg-soft: #f6f5f0;
+
+  /* 文字：深灰而非纯黑 */
+  --vp-c-text-1: #1f1f1f;
+  --vp-c-text-2: #595959;
+  --vp-c-text-3: #8c8c8c;
+}
+
+.dark {
+  --vp-c-brand-1: #e6e6e6;
+  --vp-c-brand-2: #f0f0f0;
+  --vp-c-brand-3: #ffffff;
+  --vp-c-brand-soft: rgba(230, 230, 230, 0.1);
+
+  --vp-c-bg: #131313;
+  --vp-c-bg-alt: #1a1a1a;
+  --vp-c-bg-soft: #1f1f1f;
+
+  --vp-c-text-1: #e8e8e8;
+  --vp-c-text-2: #b0b0b0;
+  --vp-c-text-3: #808080;
+}
+
+/* 首页 hero 区域：极简留白 */
+.VPHero .name,
+.VPHero .text {
+  font-family: var(--vp-font-family-base) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em;
+}
+
+.VPHero .name {
+  background: none !important;
+  -webkit-text-fill-color: var(--vp-c-text-1) !important;
+  color: var(--vp-c-text-1) !important;
+}
+
+.VPHero .tagline {
+  font-style: italic;
+  color: var(--vp-c-text-2);
+  letter-spacing: 0.05em;
+}
+
+/* 标题：增加字重对比 */
+.vp-doc h1 {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid var(--vp-c-divider);
+  padding-bottom: 0.4em;
+}
+
+.vp-doc h2 {
+  font-weight: 500;
+  border-top: none;
+  padding-top: 1em;
+  margin-top: 2em;
+}
+
+/* 引用：文艺感小线条 */
+.vp-doc blockquote {
+  border-left: 2px solid var(--vp-c-text-3);
+  background: var(--vp-c-bg-soft);
+  font-style: italic;
+  color: var(--vp-c-text-2);
+}
+
+/* 链接：低调下划线 */
+.vp-doc a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--vp-c-text-3);
+  transition: border-color 0.2s ease;
+}
+
+.vp-doc a:hover {
+  border-bottom-color: var(--vp-c-text-1);
+}
+
+/* 代码块：柔和背景 */
+.vp-doc div[class*='language-'] {
+  border-radius: 4px;
+}
+
+/* 导航栏：去除多余装饰 */
+.VPNavBar {
+  backdrop-filter: blur(12px);
+}
+
+/* 文章卡片自定义样式 */
+.post-card {
+  display: block;
+  padding: 1.5rem 0;
+  border-bottom: 1px dashed var(--vp-c-divider);
+  text-decoration: none !important;
+  border-bottom: 1px dashed var(--vp-c-divider) !important;
+  transition: opacity 0.2s ease;
+}
+
+.post-card:hover {
+  opacity: 0.7;
+}
+
+.post-card .post-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+  margin-bottom: 0.4rem;
+}
+
+.post-card .post-meta {
+  font-size: 0.85rem;
+  color: var(--vp-c-text-3);
+  font-style: italic;
+}
+
+.post-card .post-excerpt {
+  margin-top: 0.6rem;
+  color: var(--vp-c-text-2);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}

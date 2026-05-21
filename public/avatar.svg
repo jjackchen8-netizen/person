@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <style>
+      .ring { fill: none; stroke: #2c2c2c; stroke-width: 1.2; }
+      .name { font-family: 'Noto Serif SC', 'Songti SC', serif; font-size: 42px; fill: #2c2c2c; font-weight: 500; }
+      .seal { fill: #b03a2e; }
+      .seal-text { font-family: 'Songti SC', serif; font-size: 10px; fill: #fff; font-weight: 700; }
+    </style>
+  </defs>
+  <!-- 外圈 -->
+  <circle cx="60" cy="60" r="56" class="ring" />
+  <circle cx="60" cy="60" r="52" class="ring" stroke-dasharray="2,3" opacity="0.5" />
+  <!-- 中心 chen 字 -->
+  <text x="60" y="74" text-anchor="middle" class="name">陈</text>
+  <!-- 印章风格小角标 -->
+  <rect x="84" y="84" width="22" height="22" rx="2" class="seal" />
+  <text x="95" y="98" text-anchor="middle" class="seal-text">chen</text>
+</svg>
