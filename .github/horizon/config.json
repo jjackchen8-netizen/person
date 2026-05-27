@@ -1,35 +1,38 @@
 {
+  "version": "1.0",
   "ai": {
     "provider": "openai",
     "model": "deepseek-chat",
     "api_key_env": "OPENAI_API_KEY",
-    "base_url": "https://api.deepseek.com/v1"
+    "base_url": "https://api.deepseek.com/v1",
+    "throttle_sec": 0
   },
   "sources": {
     "hackernews": {
       "enabled": true,
-      "min_score": 50,
-      "limit": 30
+      "fetch_top_stories": 30,
+      "min_score": 50
     },
     "rss": [
       {
         "name": "Hacker News Best",
-        "url": "https://hnrss.org/best"
+        "url": "https://hnrss.org/best",
+        "enabled": true
       },
       {
         "name": "TechCrunch",
-        "url": "https://techcrunch.com/feed/"
+        "url": "https://techcrunch.com/feed/",
+        "enabled": true
       },
       {
         "name": "The Verge",
-        "url": "https://www.theverge.com/rss/index.xml"
+        "url": "https://www.theverge.com/rss/index.xml",
+        "enabled": true
       }
     ]
   },
   "filtering": {
-    "ai_score_threshold": 6.0
-  },
-  "output": {
-    "language": "zh"
+    "ai_score_threshold": 6.0,
+    "time_window_hours": 24
   }
 }
