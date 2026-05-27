@@ -13,6 +13,9 @@ on:
   # 支持手动触发（方便测试）
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: write
 
@@ -32,7 +35,7 @@ jobs:
       - name: 🐍 安装 Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: 📦 安装 uv
         run: pip install uv
@@ -48,14 +51,10 @@ jobs:
       # -------- 4. 配置 Horizon --------
       - name: ⚙️ 配置 Horizon
         run: |
-          # 复制博客仓库中的自定义配置
+          mkdir -p .horizon-tmp/data
           cp .github/horizon/config.json .horizon-tmp/data/config.json
-
-          # 生成 .env 文件
-          cat > .horizon-tmp/.env << 'ENVEOF'
-          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
-          AI_BASE_URL=${{ secrets.AI_BASE_URL }}
-          ENVEOF
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .horizon-tmp/.env
+          echo "AI_BASE_URL=${{ secrets.AI_BASE_URL }}" >> .horizon-tmp/.env
 
       # -------- 5. 运行 Horizon 生成日报 --------
       - name: 🚀 运行 Horizon 生成新闻日报
