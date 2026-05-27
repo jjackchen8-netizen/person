@@ -5,6 +5,7 @@ export default defineConfig({
   title: 'chen 的博客',
   description: '记录技术、生活与思考',
   lang: 'zh-CN',
+  base: '/person/',
   cleanUrls: true,
   lastUpdated: true,
 
