@@ -1,7 +1,7 @@
 {
   "ai": {
     "provider": "openai",
-    "model": "gpt-4o-mini",
+    "model": "deepseek-chat",
     "api_key_env": "OPENAI_API_KEY",
     "base_url": "${AI_BASE_URL}"
   },
