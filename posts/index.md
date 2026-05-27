@@ -5,6 +5,7 @@ aside: false
 
 <script setup>
 import { computed } from 'vue'
+import { withBase } from 'vitepress'
 import { data as posts } from './posts.data.ts'
 
 // 按年份分组
@@ -38,7 +39,7 @@ const formatDate = (date) => {
     <h2 class="year-title">{{ year }}</h2>
     <ul class="post-list">
       <li v-for="post in list" :key="post.url" class="post-item">
-        <a :href="post.url" class="post-link">
+        <a :href="withBase(post.url)" class="post-link">
           <span class="post-date">{{ formatDate(post.date) }}</span>
           <span class="post-title">{{ post.title }}</span>
           <span v-if="post.category" class="post-cat">— {{ post.category }}</span>

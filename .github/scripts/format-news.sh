@@ -24,8 +24,12 @@ echo "📰 找到摘要文件: $LATEST_SUMMARY"
 # 确保输出目录存在
 mkdir -p "$OUTPUT_DIR"
 
-# 读取摘要内容（去掉可能存在的原始标题行）
-CONTENT=$(sed '1{/^# /d;}' "$LATEST_SUMMARY")
+# 读取摘要内容
+CONTENT=$(cat "$LATEST_SUMMARY")
+# 去掉可能存在的原始标题行
+CONTENT=$(echo "$CONTENT" | sed '1{/^# /d;}')
+# 将英文摘要行替换为中文（Horizon 在 zh 语言下会输出中文，但兼容旧格式）
+CONTENT=$(echo "$CONTENT" | sed 's/^> From \([0-9]*\) items, \([0-9]*\) important content pieces were selected$/> 从 \1 条信息中，筛选出 \2 条重要内容/')
 
 # 生成带 frontmatter 的博客文章
 cat > "$FILENAME" << EOF
