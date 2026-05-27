@@ -8,6 +8,10 @@ name: 🚀 Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  workflow_run:
+    workflows: ["\U0001f4f0 Daily News"]
+    branches: [main]
+    types: [completed]
   workflow_dispatch:
 
 env:
@@ -26,6 +30,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 如果是 workflow_run 触发，只在成功时运行
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: 📥 检出代码
         uses: actions/checkout@v4
