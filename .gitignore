@@ -14,5 +14,8 @@ dist-ssr
 !.env.example
 *.log
 
+# Horizon 临时目录
+.horizon-tmp/
+
 # Qoder IDE 生成的元数据
 .qoder/

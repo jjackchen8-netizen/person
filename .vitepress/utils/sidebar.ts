@@ -19,7 +19,8 @@ const CATEGORY_LABELS: Record<string, string> = {
   life: '生活随笔',
   reading: '读书',
   thoughts: '思考',
-  tools: '工具'
+  tools: '工具',
+  news: '新闻日报'
 }
 
 /**
@@ -31,7 +32,8 @@ const CATEGORY_ORDER: Record<string, number> = {
   tools: 3,
   reading: 4,
   thoughts: 5,
-  life: 6
+  life: 6,
+  news: 7
 }
 
 interface PostMeta {

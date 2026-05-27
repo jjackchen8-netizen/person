@@ -1,0 +1,99 @@
+# ============================================================
+# 每日新闻自动推送工作流
+# 使用 Horizon (https://github.com/Thysrael/Horizon) 生成新闻日报
+# 每天北京时间 9:00 自动运行，生成新闻文章并推送到博客
+# ============================================================
+
+name: 📰 Daily News
+
+on:
+  schedule:
+    # 每天 UTC 1:00 (北京时间 9:00) 运行
+    - cron: '0 1 * * *'
+  # 支持手动触发（方便测试）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      # -------- 1. 检出博客仓库 --------
+      - name: 📥 检出博客仓库
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------- 2. 安装 Python 环境 --------
+      - name: 🐍 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 安装 uv
+        run: pip install uv
+
+      # -------- 3. 克隆并安装 Horizon --------
+      - name: 🛰️ 克隆 Horizon
+        run: git clone --depth 1 https://github.com/Thysrael/Horizon.git .horizon-tmp
+
+      - name: 🔧 安装 Horizon 依赖
+        working-directory: .horizon-tmp
+        run: uv sync
+
+      # -------- 4. 配置 Horizon --------
+      - name: ⚙️ 配置 Horizon
+        run: |
+          # 复制博客仓库中的自定义配置
+          cp .github/horizon/config.json .horizon-tmp/data/config.json
+
+          # 生成 .env 文件
+          cat > .horizon-tmp/.env << 'ENVEOF'
+          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+          AI_BASE_URL=${{ secrets.AI_BASE_URL }}
+          ENVEOF
+
+      # -------- 5. 运行 Horizon 生成日报 --------
+      - name: 🚀 运行 Horizon 生成新闻日报
+        working-directory: .horizon-tmp
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          AI_BASE_URL: ${{ secrets.AI_BASE_URL }}
+        run: uv run horizon --hours 24
+
+      # -------- 6. 转换为博客文章格式 --------
+      - name: 📝 转换为博客文章
+        run: |
+          chmod +x .github/scripts/format-news.sh
+          bash .github/scripts/format-news.sh .horizon-tmp/data/summaries posts/news
+
+      # -------- 7. 检查是否有新文章生成 --------
+      - name: 🔍 检查新文章
+        id: check
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ 没有新的新闻文章生成"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "✅ 检测到新文章"
+          fi
+
+      # -------- 8. 提交并推送 --------
+      - name: 📤 提交并推送
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add posts/news/
+          git commit -m "📰 每日新闻速递 $(date +%Y-%m-%d)"
+          git push
+
+      # -------- 9. 清理临时文件 --------
+      - name: 🧹 清理
+        if: always()
+        run: rm -rf .horizon-tmp

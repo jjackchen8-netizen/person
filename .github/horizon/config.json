@@ -1,0 +1,35 @@
+{
+  "ai": {
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "api_key_env": "OPENAI_API_KEY",
+    "base_url": "${AI_BASE_URL}"
+  },
+  "sources": {
+    "hackernews": {
+      "enabled": true,
+      "min_score": 50,
+      "limit": 30
+    },
+    "rss": [
+      {
+        "name": "Hacker News Best",
+        "url": "https://hnrss.org/best"
+      },
+      {
+        "name": "TechCrunch",
+        "url": "https://techcrunch.com/feed/"
+      },
+      {
+        "name": "The Verge",
+        "url": "https://www.theverge.com/rss/index.xml"
+      }
+    ]
+  },
+  "filtering": {
+    "ai_score_threshold": 6.0
+  },
+  "output": {
+    "language": "zh"
+  }
+}
