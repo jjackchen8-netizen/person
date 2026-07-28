@@ -1,5 +1,5 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "chen-blog"
+name = "person"
 compatibility_date = "2025-05-01"
 
 # 构建命令（Cloudflare 会先执行此命令再读取产物）
